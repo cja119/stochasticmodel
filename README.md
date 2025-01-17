@@ -45,8 +45,6 @@ stage_duration=(1,2,3,4,5...)
 renewables=("Wind","Solar")
 key='SampleModel'
 random_seed=42
-
-
 ```
 Run the scripts, using the following command:
 ```
