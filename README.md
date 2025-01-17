@@ -36,9 +36,17 @@ nano SolveModel.sh
 ```
 Then modify the following by coding in **one** of the values in each brackets, to create the eight different scneario permutations. It is reccomended to modify the key parameter value to ensure saved runs don't override eachother:
 ```
-reconversion=("True","False")
 vector=("LH2","NH3")
 grid_connection=("True","False")
+grid_connection=("True","False")
+n_stages=(1,2,3,4,5...)
+n_branches=(1,2,3,4,5...)
+stage_duration=(1,2,3,4,5...)
+renewables=("Wind","Solar")
+key='SampleModel'
+random_seed=42
+
+
 ```
 Run the scripts, using the following command:
 ```
