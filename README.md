@@ -16,7 +16,7 @@ git clone https://github.com/cja119/ChileRotterdamSupplyModel.git
 Set up the conda environment:
 
 ```
-conda env create -f dependencies.yml
+conda env create -f environment.yml
 ```
 
 Then activate the environment using the following:
