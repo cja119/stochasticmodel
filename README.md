@@ -22,7 +22,7 @@ conda env create -f environment.yml
 Then activate the environment using the following:
 
 ```
-source activate MIPSupplyChain
+source activate StochasticModel
 ```
 To run the sample formulation, execute the bash script as follows
 
