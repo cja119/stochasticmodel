@@ -8,7 +8,7 @@ Open Source Model for a Hydrogen Supply Chain from Chile to Rotterdam, the model
 In order to run this model, a licence for [gurobi](https://www.gurobi.com/) is required, as is an installation of [conda](https://docs.anaconda.com/miniconda/). 
 
 ## Quick Start
-For a quick start, run the folliwng command to clone the repository to your local machine:
+For a quick start, it is first necessary to install PystochOpt, following the instructions available in that repository. Then run the folliwng command to clone this repository to your local machine:
 ```
 git clone https://github.com/cja119/ChileRotterdamSupplyModel.git
 ```
