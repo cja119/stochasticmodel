@@ -1,0 +1,3 @@
+[submodule "WeatherModel"]
+	path = WeatherModel
+	url = https://github.com/cja119/WeatherModel.git
