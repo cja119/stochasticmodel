@@ -1,4 +1,4 @@
-name: JupyterKernel
+name: StochasticModel
 channels:
   - https://conda.anaconda.org/gurobi
   - bioconda
