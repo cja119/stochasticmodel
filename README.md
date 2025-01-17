@@ -1,4 +1,5 @@
-# Stochastic Operations Model [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Imperial](https://img.shields.io/badge/Imperial-0000C5.svg)](https://www.imperial.ac.uk)
+# Stochastic Operations Model [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Imperial](https://img.shields.io/badge/Imperial-0000C5.svg)](https://www.imperial.ac.uk) [![DOI](https://zenodo.org/badge/918136747.svg)](https://doi.org/10.5281/zenodo.14678255)
+
 Open Source Model for a Hydrogen Supply Chain from Chile to Rotterdam, the modelled supply chain is shown in the figure, below:
 
 ![Supply Chain](images/image.png)
