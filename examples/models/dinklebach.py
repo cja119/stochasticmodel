@@ -33,15 +33,17 @@ booleans = {
 
 # Load default parameters and update them with user inputs
 parameters = DefaultParams().formulation_parameters
-parameters['booleans'] = booleans
-parameters['stage_duration'] = int(sys.argv[5])  # Duration of each stage
-parameters['n_stages'] = int(sys.argv[1])  # Number of stages
-parameters['n_stochastics'] = int(sys.argv[2])  # Number of stochastic scenarios
-parameters['hydrogen_price'] = 5  # $/kg
-parameters['random_seed'] = int(sys.argv[4])  # Random seed for reproducibility
-parameters['relaxed_ramping'] = True  # Enable relaxed ramping
-parameters['vector_operating_duration'] = 1  # Operating duration of vectors
-parameters['shipping_decision'] = 168  # Shipping decision interval (hours)
+parameters.update({
+    'booleans': booleans,
+    'stage_duration': int(sys.argv[5]),  # Duration of each stage
+    'n_stages': int(sys.argv[1]),  # Number of stages
+    'n_stochastics': int(sys.argv[2]),  # Number of stochastic scenarios
+    'hydrogen_price': 5,  # $/kg
+    'random_seed': int(sys.argv[4]),  # Random seed for reproducibility
+    'relaxed_ramping': True,  # Enable relaxed ramping
+    'vector_operating_duration': 1,  # Operating duration of vectors
+    'shipping_decision': 168  # Shipping decision interval (hours)
+})
 
 # Calculate elapsed time
 time_elapsed = time.time() - start_time
