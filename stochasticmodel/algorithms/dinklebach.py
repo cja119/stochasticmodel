@@ -47,7 +47,7 @@ class Dinkelbach:
         start_time = time.time()
 
         # Get the current working directory
-        current_dir = Path(__file__).resolve().parent()
+        current_dir = Path(__file__).resolve().parent
 
         # Target directory for presolved model
         cache_dir = current_dir.parent.parent / 'cache' 

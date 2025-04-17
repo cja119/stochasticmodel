@@ -21,7 +21,7 @@ def get_weather_sensitivity(label, n_solve):
     """
 
      # Get the current working directory
-    current_dir = Path(__file__).resolve().parent()
+    current_dir = Path(__file__).resolve().parent
     
     # Target directory for presolved model
     data_dir = current_dir.parent.parent / 'data' 

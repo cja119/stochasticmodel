@@ -67,7 +67,7 @@ class Pareto:
             original_parameters (dict): Original model parameters.
         """
         # Get the current working directory
-        current_dir = Path(__file__).resolve().parent()
+        current_dir = Path(__file__).resolve().parent
 
         # Target directory for presolved model
         cache_dir = current_dir.parent.parent / 'cache' 
@@ -100,7 +100,7 @@ class Pareto:
         """
 
         # Get the current working directory
-        current_dir = Path(__file__).resolve().parent()
+        current_dir = Path(__file__).resolve().parent
 
         # Target directory for presolved model
         cache_dir = current_dir.parent.parent / 'cache' 
@@ -166,7 +166,7 @@ class Pareto:
         """
         
         # Get the current working directory
-        current_dir = Path(__file__).resolve().parent()
+        current_dir = Path(__file__).resolve().parent
 
         # Target directory for presolved model
         cache_dir = current_dir.parent.parent / 'cache' 

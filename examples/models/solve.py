@@ -11,6 +11,7 @@ solve = OptimisationModel.class_solve(
     optimality = float(sys.argv[3]),
     mip_percentage = int(sys.argv[4]),
     random_seed=sys.argv[5],
+    solver='gurobi',
     parallel=False
     )
 

@@ -15,6 +15,9 @@ dependencies:
   - dask
   - distributed
   - pyomo
+  - rust
+  - maturin
+
 
   # Plotting & Visualization
   - bokeh
@@ -59,8 +62,9 @@ dependencies:
   - setuptools
   - wheel
 
-  # Gurobi solver (assumes you have a license setup)
+  # Solvers (assumes you have a license setup)
   - gurobi
+  - cbc
 
   # Misc
   - cloudpickle

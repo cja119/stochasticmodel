@@ -26,20 +26,23 @@ booleans = {
 }
 
 parameters = DefaultParams().formulation_parameters
-parameters['booleans'] = booleans
-parameters['stage_duration'] = int(sys.argv[5])
-parameters['n_stages'] = int(sys.argv[1])
-parameters['n_stochastics'] = int(sys.argv[2])
-parameters['hydrogen_price'] = 5  # $/kg
-parameters['random_seed'] = int(sys.argv[4])
-parameters['relaxed_ramping'] = True
-parameters['vector_operating_duration'] = 1
-parameters['shipping_decision'] = 168
+parameters.update({
+    'booleans': booleans,
+    'stage_duration': int(sys.argv[5]),
+    'n_stages': int(sys.argv[1]),
+    'n_stochastics': int(sys.argv[2]),
+    'hydrogen_price': 5,  # $/kg
+    'random_seed': int(sys.argv[4]),
+    'relaxed_ramping': True,
+    'vector_operating_duration': 1,
+    'shipping_decision': 168
+})
 
 model = OptimisationModel(parameters, key=sys.argv[7])
 time_elapsed = time.time() - start_time
 
 model = OptimisationModel.class_solve(
     key=sys.argv[7],
-    time=int(sys.argv[8]) - time_elapsed
+    time=int(sys.argv[8]) - time_elapsed,
+    solver='gurobi',
 )

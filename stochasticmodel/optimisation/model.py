@@ -69,10 +69,10 @@ class OptimisationModel:
         
     """
 
-    def __init__(self, parameters, key, probabilities=False):
+    def __init__(self, parameters, key):
         self.key = key
         start_time = time.time()
-        self.setup_model(parameters, probabilities)
+        self.setup_model(parameters)
         self.generate_objective_function()
         print(f'Setup Model completed in {time.time() - start_time:.2f} seconds')
 
@@ -80,10 +80,10 @@ class OptimisationModel:
         self.build_model()
         print(f'Model Built in {time.time() - start_time:.2f} seconds')
 
-    def setup_model(self, parameters, probabilities):
+    def setup_model(self, parameters):
         self.model = AbstractModel()
         self.model.random_seed = int(parameters['random_seed'])
-        generate_parameters(self.model, parameters, probabilities=False)
+        generate_parameters(self.model, parameters)
         generate_variables(self.model)
         generate_inequalities(self.model)
 
@@ -92,29 +92,30 @@ class OptimisationModel:
 
     def build_model(self):
         self.instance = self.model.create_instance()
-        current_dir = getcwd()
-        chdir(f"{current_dir}/PreSolvedModels")
-        open(f"{self.key}.pickle", 'a').close()
-        with open(f"{self.key}.pickle", 'wb') as f:
+        current_dir = Path(__file__).resolve().parent
+        presolve_dir = current_dir.parent.parent / "cache" / 'pre'
+
+        open(presolve_dir/f"{self.key}.pickle", 'a').close()
+        with open(presolve_dir/f"{self.key}.pickle", 'wb') as f:
             dump(self.instance, f)
         chdir(current_dir)
 
     @staticmethod
     def get_param_dict(file_name):
-        current_dir = getcwd()
-        chdir(f"{current_dir}/PreSolvedModels")
-        open(f"{file_name}.pickle", 'a').close()
-        with open(f"{file_name}.pickle", 'rb') as f:
+        current_dir = Path(__file__).resolve().parent
+        presolve_dir = current_dir.parent.parent / "cache" / 'pre'
+        open(presolve_dir/f"{file_name}.pickle", 'a').close()
+        with open(presolve_dir/f"{file_name}.pickle", 'rb') as f:
             parameters = load(f)
         chdir(current_dir)
         return OptimisationModel(parameters, key=file_name)
 
     @staticmethod
     def get_parameters(file_name):
-        current_dir = getcwd()
-        chdir(f"{current_dir}/PreSolvedModels")
-        open(f"{file_name}.pickle", 'a').close()
-        with open(f"{file_name}.pickle", 'rb') as f:
+        current_dir = Path(__file__).resolve().parent
+        presolve_dir = current_dir.parent.parent / "cache" / 'pre'
+        open(presolve_dir/f"{file_name}.pickle", 'a').close()
+        with open(presolve_dir/f"{file_name}.pickle" 'rb') as f:
             parameters = load(f)
         chdir(current_dir)
         return parameters
@@ -142,14 +143,14 @@ class OptimisationModel:
 
         """
         # Get the current working directory
-        current_dir = Path(__file__).resolve().parent()
+        current_dir = Path(__file__).resolve().parent
 
         # Target directory for presolved model
-        cache_dir = current_dir.parent.parent / 'cache'  
+        cache_dir = current_dir.parent.parent / "cache"
 
         # Check if the instance is None or if reinitialisation is required
         if cls.instance is None or reinitialise:
-            with open(cache_dir / f"/pre/{key}.pickle", 'rb') as f:
+            with open(cache_dir / f"pre/{key}.pickle", 'rb') as f:
                 loaded = load(f)
                 if isinstance(loaded, dict):
                     print('Loaded recognised as dict')
@@ -160,20 +161,31 @@ class OptimisationModel:
                 cls.key = key
 
         # Setting up the solver
+        solve_kwargs = {}
         cls.solver = SolverFactory(solver)
-        cls.solver.options['FeasibilityTol'] = feasibility
-        cls.solver.options['Seed'] = random_seed
-        cls.solver.options['OptimalityTol'] = optimality
-        cls.solver.options['MIPGap'] = mip_percentage / 100
-        cls.solver.options['LogToConsole'] = 1
-        cls.solver.options['LogFile'] = cache_dir / "log/{cls.key}.log"
-
-        if parallel:
-            cls.solver.options['Threads'] = 8
-            cls.solver.options['DistributedMIPJobs'] = 2
+        
+        if solver == "cbc":
+            cls.solver.options['ratioGap'] = mip_percentage / 100
+            cls.solver.options['logLevel'] = 1
+            cls.solver.options['randomCbcSeed'] = random_seed
+            if parallel:
+                cls.solver.options['threads'] = 8
+            solve_kwargs['tee'] = True
+            solve_kwargs['logfile'] = str(cache_dir / f"log/{cls.key}.log")
+        elif solver == "gurobi":
+            cls.solver.options['FeasibilityTol'] = feasibility
+            cls.solver.options['OptimalityTol'] = optimality
+            cls.solver.options['MIPGap'] = mip_percentage / 100
+            cls.solver.options['LogToConsole'] = 1
+            cls.solver.options['LogFile'] = str(cache_dir / f"log/{cls.key}.log")
+            solve_kwargs['tee'] = True
+            if parallel:
+                cls.solver.options['Threads'] = 8
+                cls.solver.options['DistributedMIPJobs'] = 2
+            
 
         # Solving the model
-        cls.results = cls.solver.solve(cls.instance, tee=True)
+        cls.results = cls.solver.solve(cls.instance, **solve_kwargs)
         
         # Saving the results
         cls.results.write()
@@ -188,10 +200,10 @@ class OptimisationModel:
         This method loads the model from a file and returns an OptimisationModel instance.
         """
         # Get the current working directory
-        current_dir = Path(__file__).resolve().parent()
+        current_dir = Path(__file__).resolve().parent
 
         # Target directory for presolved model
-        cache_dir = current_dir.parent.parent / 'cache'  
+        cache_dir = current_dir.parent.parent / "cache"  
         
         if cls.instance is None or reinitialise:
             with open(cache_dir / f"post/{key}.pickle", 'rb') as f:

@@ -133,13 +133,13 @@ def generate_parameters(model, parameters):
         parameters['stage_duration'], model.random_seed
     )
 
-    weather_path = Path(__file__).parent().parent.parent / "weathermodel/data/"
+    weather_path = Path(__file__).parent.parent.parent / "weathermodel/data/"
 
     # Add wind dataset
     if model.wind and not model.solar:
         if model.grid_wheel:
             wind_samples = stochastic_grid.add_dataset(
-                'CoastalChile_Wind.csv', weather_path,
+                'CoastalChile_Wind.csv', str(weather_path),
                 cluster=True, epsilon=0.001,
                 cluster_points=[
                     (parameters['shipping_decision'], parameters['shipping']['loading_time']),
@@ -148,7 +148,7 @@ def generate_parameters(model, parameters):
             )
         else:
             wind_samples = stochastic_grid.add_dataset(
-                'CoastalChile_Wind.csv', weather_path,
+                'CoastalChile_Wind.csv', str(weather_path),
                 cluster=True, epsilon=0.001,
                 cluster_points=[
                     (parameters['shipping_decision'], parameters['shipping']['loading_time'])
@@ -156,7 +156,7 @@ def generate_parameters(model, parameters):
             )
     else:
         wind_samples = stochastic_grid.add_dataset(
-            'CoastalChile_Wind.csv', weather_path, cluster=False
+            'CoastalChile_Wind.csv', str(weather_path), cluster=False
         )
 
     # Generate sets for vector continuity and shipping
@@ -243,7 +243,7 @@ def generate_parameters(model, parameters):
 
     if model.solar:
         solar_samples = stochastic_grid.add_dataset(
-            'CoastalChile_Solar.csv', weather_path
+            'CoastalChile_Solar.csv', str(weather_path),
         )
         model.solar_power = Param(
             model.full_set, initialize=solar_samples, mutable=False
