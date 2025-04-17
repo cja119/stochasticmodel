@@ -2,7 +2,7 @@
 
 Open Source Model for a Hydrogen Supply Chain from Chile to Rotterdam, the modelled supply chain is shown in the figure, below:
 
-![Supply Chain](images/image.png)
+![Supply Chain](png/image.png)
 
 
 ## Dependencies [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3124/) [![Conda 24.5.0](https://img.shields.io/badge/conda-24.5.0-green.svg)](https://anaconda.org/anaconda/conda/files?page=1&type=conda&version=24.5.0) [![Gurobi 11.03](https://img.shields.io/badge/gurobi-11.0.3-red.svg)](https://www.gurobi.com/downloads/gurobi-optimizer-release-notes-v11-0-3/)
