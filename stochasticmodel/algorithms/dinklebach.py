@@ -1,6 +1,6 @@
 from numpy import abs
 import pandas as pd
-from OptimisationScripts.OptimisationModel import OptimModel
+from OptimisationScripts.model import OptimModel
 from copy import deepcopy
 import time
 

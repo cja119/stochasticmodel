@@ -1,6 +1,6 @@
 from os import chdir, getcwd, makedirs
 from copy import deepcopy
-from OptimisationScripts.OptimisationModel import OptimModel
+from OptimisationScripts.model import OptimModel
 import csv
 
 def get_weather_sensitivity(label, n_solve):

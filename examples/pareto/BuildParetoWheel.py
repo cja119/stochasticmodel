@@ -8,7 +8,7 @@ sys.path.append(module_folder_path)
 
 from StochasticScripts.ParetoFronts import ParetoFront
 from PreOptimisationDataStore.DefaultParameters import Default_Params
-from OptimisationScripts.OptimisationModel import OptimModel
+from OptimisationScripts.model import OptimModel
 
 booleans = {'vector_choice':{'LH2':True if sys.argv[2] == 'LH2' else False,
                                 'NH3':True if sys.argv[2] == 'NH3' else False
@@ -21,7 +21,7 @@ booleans = {'vector_choice':{'LH2':True if sys.argv[2] == 'LH2' else False,
                 'wind':sys.argv[6] in ['Wind', 'Both'],
                 'solar':sys.argv[6] in ['Solar', 'Both'],
                 'net_present_value': True,
-		'grid_wheel':False}
+		'grid_wheel':True}
                 
 
 parameters = Default_Params().formulation_parameters

@@ -1,6 +1,6 @@
 from pyomo.environ import AbstractModel, Objective, minimize, SolverFactory, TerminationCondition
-from OptimisationScripts.OptimisationParameters import generate_parameters
-from OptimisationScripts.OptimisationInequalities import generate_inequalities, objective_function
+from OptimisationScripts.parameters import generate_parameters
+from OptimisationScripts.inequalities import generate_inequalities, objective_function
 from OptimisationScripts.OptimisationVariables import generate_variables
 from OptimisationScripts.OptimisationPlots import (
     wind_energy, vector_production, hydrogen_production, hydrogen_storage_tank_level,

@@ -5,7 +5,7 @@ import matplotlib.pyplot as plot
 from os import chdir, getcwd
 from dill import dump, load
 from pyomo.environ import value as pyomo_value
-from OptimisationScripts.OptimisationModel import OptimModel
+from OptimisationScripts.model import OptimModel
 from copy import deepcopy
 from numpy import floor
 

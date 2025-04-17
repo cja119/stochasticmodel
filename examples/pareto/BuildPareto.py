@@ -8,7 +8,7 @@ sys.path.append(module_folder_path)
 
 from StochasticScripts.ParetoFronts import ParetoFront
 from PreOptimisationDataStore.DefaultParameters import Default_Params
-from OptimisationScripts.OptimisationModel import OptimModel
+from OptimisationScripts.model import OptimModel
 
 booleans = {'vector_choice':{'LH2':True if sys.argv[2] == 'LH2' else False,
                                 'NH3':True if sys.argv[2] == 'NH3' else False

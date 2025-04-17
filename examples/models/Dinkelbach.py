@@ -6,15 +6,18 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 module_folder_path = os.path.join(current_dir, '../')
 sys.path.append(module_folder_path)
 
-from OptimisationScripts.OptimisationModel import OptimModel
+from OptimisationScripts.model import OptimModel
 from PreOptimisationDataStore.DefaultParameters import Default_Params
 from StochasticScripts.ParetoFronts import ParetoFront
+from StochasticScripts.Dinkelbach import Dinkelbach
+
 import numpy as np
 from os import getcwd, chdir, environ, popen,system
 from dill import dump   
 import time
 
 start_time = time.time()
+
 booleans = {'vector_choice':{'LH2':True if sys.argv[3] == 'LH2' else False,
                                 'NH3':True if sys.argv[3] == 'NH3' else False
                                 },
@@ -37,9 +40,7 @@ parameters['random_seed'] = int(sys.argv[4])
 parameters['relaxed_ramping'] = True
 parameters['vector_operating_duration'] = 1
 parameters['shipping_decision'] = 168
-
-
-model = OptimModel(parameters, key=sys.argv[7])
 time_elapsed = time.time() - start_time
 
-model = OptimModel.class_solve(key=sys.argv[7], time =  int(sys.argv[8]) - (time_elapsed))
+Dinkelbach.warm_start(sys.argv[7],parameters,time_lim = int(sys.argv[8]) - (time_elapsed))
+

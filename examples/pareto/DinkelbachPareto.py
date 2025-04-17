@@ -6,7 +6,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 module_folder_path = os.path.join(current_dir, '../')
 sys.path.append(module_folder_path)
 
-from OptimisationScripts.OptimisationModel import OptimModel
+from OptimisationScripts.model import OptimModel
 from PreOptimisationDataStore.DefaultParameters import Default_Params
 from StochasticScripts.ParetoFronts import ParetoFront
 from StochasticScripts.Dinkelbach import Dinkelbach

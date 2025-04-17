@@ -1,3 +1,7 @@
 [submodule "WeatherModel"]
-	path = WeatherModel
+	path = weathermodel
 	url = https://github.com/cja119/WeatherModel.git
+
+[submodule "PyStochOpt"]
+	path = pystochopt
+	url = https://github.com/cja119/PyStochOpt.git
