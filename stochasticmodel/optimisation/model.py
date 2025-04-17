@@ -1,21 +1,73 @@
-from pyomo.environ import AbstractModel, Objective, minimize, SolverFactory, TerminationCondition
-from OptimisationScripts.parameters import generate_parameters
-from OptimisationScripts.inequalities import generate_inequalities, objective_function
-from OptimisationScripts.OptimisationVariables import generate_variables
-from OptimisationScripts.OptimisationPlots import (
-    wind_energy, vector_production, hydrogen_production, hydrogen_storage_tank_level,
-    origin_storage_tank_levels, grid_energy, curtailed_energy, objective_cdf, active_trains,LCOH_contributions
-)
-from matplotlib import rcParams
-from pyomo.environ import TransformationFactory, Var, value
-from os import getcwd, chdir
-from dill import dump, load
-from sys import exit
+"""
+This code defines the OptimisationModel class, which is used to create and solve an optimisation model using Pyomo.
+"""
+
 import time
+from os import getcwd, chdir
+from sys import exit
+from dill import dump, load
+from pathlib import Path
+from matplotlib import rcParams
+from pyomo.environ import (
+    AbstractModel, Objective, minimize, SolverFactory, TerminationCondition,
+    TransformationFactory, Var, value
+)
+from .parameters import generate_parameters
+from .inequalities import generate_inequalities, objective_function
+from .variables import generate_variables
+from .plots import (
+    wind_energy, vector_production, hydrogen_production,
+    hydrogen_storage_tank_level, origin_storage_tank_levels, grid_energy,
+    curtailed_energy, objective_cdf, active_trains, LCOH_contributions
+)
 
 
-class OptimModel:
+class OptimisationModel:
     instance = None
+    """
+    This class is used to create and solve an optimisation model using Pyomo.
+    It includes methods for setting up the model, generating the objective function,
+    building the model, and solving it using a specified solver.
+    It also includes methods for generating plots of the results and for handling
+    warm starts.
+
+    Attributes:
+    .. parameters 
+        instance: The Pyomo model instance.
+        key: A string used to identify the model.
+        solver: The solver used to solve the model.
+        results: The results of the optimisation.
+        model: The Pyomo model.
+        alpha: The transparency level for plots.
+        custom_cmap: A list of colors for plots.
+        linewidth: The line width for plots.
+    .. methods
+        __init__(self, parameters, key, probabilities=False):
+            Initializes the model with the given parameters and key.
+        setup_model(self, parameters, probabilities):
+            Sets up the model with the given parameters.
+        generate_objective_function(self):
+            Generates the objective function for the model.
+
+        build_model(self):
+            Builds the model and saves it to a file.
+        get_param_dict(file_name):
+            Loads the parameters from a file and returns an OptimisationModel instance.
+        get_parameters(file_name):
+            Loads the parameters from a file and returns them as a dictionary.
+        class_solve(cls, unbounded=False, feasibility=1e-2, optimality=1e-8,
+            mip_percentage=5, random_seed=42, solver='gurobi', key=None,
+            parallel=False, time=None, reinitialise=False):
+            Solves the model using the specified solver and parameters.
+        get_solve(cls, key, reinitialise=False):
+            Loads the model from a file and returns an OptimisationModel instance.
+       
+         generate_plots(self, all=True, demand=False, storage_tanks=False,
+            conversion_process=False, electrolyser_production=False,
+            curtailed=False, grid=False, quality=150):
+            Generates plots of the results.
+        
+    """
 
     def __init__(self, parameters, key, probabilities=False):
         self.key = key
@@ -23,7 +75,7 @@ class OptimModel:
         self.setup_model(parameters, probabilities)
         self.generate_objective_function()
         print(f'Setup Model completed in {time.time() - start_time:.2f} seconds')
-        
+
         start_time = time.time()
         self.build_model()
         print(f'Model Built in {time.time() - start_time:.2f} seconds')
@@ -40,176 +92,148 @@ class OptimModel:
 
     def build_model(self):
         self.instance = self.model.create_instance()
-        dir = getcwd()
-        chdir(dir + '/PreSolvedModels')
-        open(self.key + '.pickle', 'a').close()
-        with open(self.key + '.pickle', 'wb') as f:
+        current_dir = getcwd()
+        chdir(f"{current_dir}/PreSolvedModels")
+        open(f"{self.key}.pickle", 'a').close()
+        with open(f"{self.key}.pickle", 'wb') as f:
             dump(self.instance, f)
-        chdir(dir)
+        chdir(current_dir)
 
     @staticmethod
     def get_param_dict(file_name):
-        dir = getcwd()
-        chdir(dir + '/PreSolvedModels')
-        open(file_name + '.pickle', 'a').close()
-        with open(file_name + '.pickle', 'rb') as f:
+        current_dir = getcwd()
+        chdir(f"{current_dir}/PreSolvedModels")
+        open(f"{file_name}.pickle", 'a').close()
+        with open(f"{file_name}.pickle", 'rb') as f:
             parameters = load(f)
-        chdir(dir)
-        return OptimModel(parameters,key=file_name)
-    
+        chdir(current_dir)
+        return OptimisationModel(parameters, key=file_name)
+
     @staticmethod
     def get_parameters(file_name):
-        dir = getcwd()
-        chdir(dir + '/PreSolvedModels')
-        open(file_name + '.pickle', 'a').close()
-        with open(file_name + '.pickle', 'rb') as f:
+        current_dir = getcwd()
+        chdir(f"{current_dir}/PreSolvedModels")
+        open(f"{file_name}.pickle", 'a').close()
+        with open(f"{file_name}.pickle", 'rb') as f:
             parameters = load(f)
-        chdir(dir)
+        chdir(current_dir)
         return parameters
 
     @classmethod
-    def class_solve(cls, unbounded=False, feasibility=1e-2, optimality=1e-8, mip_percentage=5, random_seed=42, solver='gurobi', key=None, parallel=False,time=None,reinitialise=False):
-        dir = getcwd()
+    def class_solve(
+        cls, feasibility=1e-2, optimality=1e-8, mip_percentage=5,
+        random_seed=42, solver='gurobi', key=None, parallel=False, time=None,
+        reinitialise=False
+    ):
+        """
+        This method solves the optimisation model using the specified solver
+        and parameters. It also handles warm starts and saves the results to a file.
+        
+        Parameters:
+        .. feasibility (float): Feasibility tolerance for the solver.
+        .. optimality (float): Optimality tolerance for the solver.
+        .. mip_percentage (float): MIP gap percentage for the solver.
+        .. random_seed (int): Random seed for the solver.
+        .. solver (str): The solver to use (default is 'gurobi').
+        .. key (str): A string used to identify the model.
+        .. parallel (bool): Whether to use parallel processing (default is False).
+        .. time (int): Time limit for the solver (default is None).
+        .. reinitialise (bool): Whether to reinitialise the model (default is False).
+
+        """
+        # Get the current working directory
+        current_dir = Path(__file__).resolve().parent()
+
+        # Target directory for presolved model
+        cache_dir = current_dir.parent.parent / 'cache'  
+
+        # Check if the instance is None or if reinitialisation is required
         if cls.instance is None or reinitialise:
-            chdir(dir + '/PreSolvedModels')
-            with open(key + '.pickle', 'rb') as f:
+            with open(cache_dir / f"/pre/{key}.pickle", 'rb') as f:
                 loaded = load(f)
-                if isinstance(loaded,dict):
-                    print('loaded recognised as dict')
-                    chdir(dir)
-                    cls = OptimModel.get_param_dict(key)
-                    print(type(cls.instance))
-                    chdir(dir + '/PreSolvedModels')
+                if isinstance(loaded, dict):
+                    print('Loaded recognised as dict')
+                    cls = OptimisationModel.get_param_dict(key)
                 else:
-                    print('loaded recognised as instance')
+                    print('Loaded recognised as instance')
                     cls.instance = loaded
                 cls.key = key
-            chdir(dir)
-        print(type(cls.instance))
-        chdir(dir + '/SolverLogs')
+
+        # Setting up the solver
         cls.solver = SolverFactory(solver)
         cls.solver.options['FeasibilityTol'] = feasibility
         cls.solver.options['Seed'] = random_seed
         cls.solver.options['OptimalityTol'] = optimality
         cls.solver.options['MIPGap'] = mip_percentage / 100
         cls.solver.options['LogToConsole'] = 1
-        cls.solver.options['LogFile'] = cls.key + '.log'
-        
+        cls.solver.options['LogFile'] = cache_dir / "log/{cls.key}.log"
+
         if parallel:
             cls.solver.options['Threads'] = 8
             cls.solver.options['DistributedMIPJobs'] = 2
-        if time is not None:
-            cls.solver.options['TimeLimit'] = time
-            cls.solver.options['ResultFile'] = cls.key+'_progress.mst'
-            cls.solver.options['warmstart'] = 1
-            try:
-                cls.solver.options['MIPStart'] = cls.key+'_progress.mst'
-            except:
-                pass
-            try:
-                chdir(dir)
-                chdir(dir + '/WarmStarts')
-                with open(cls.key+'_warmstart.pickle', 'rb') as f:
-                    variable_values = load(f)
-                chdir(dir+ '/SolverLogs') 
-                    
-                print('Warmstart Found')
-                for v in cls.instance.component_objects(Var, active=True):
-                    if v.is_indexed():
-                        for index in v:
-                            var_name = f"{v.name}[{index}]"
-                            if var_name in variable_values:
-                                v[index].value = variable_values[var_name]
-                    else:
-                        if v.name in variable_values:
-                            v.value = variable_values[v.name]
-                print('Warmstart Loaded')
-                cls.results = cls.solver.solve(cls.instance, tee=True,warmstart=True)
-            except:
-                chdir(dir+ '/SolverLogs')
-                cls.results = cls.solver.solve(cls.instance, tee=True)
-            
 
-            if cls.results.solver.termination_condition == TerminationCondition.optimal:
-                print("Optimal solution found. Exiting...")
-                cls.results.write()
-                chdir(dir)
-                chdir(dir + '/SolvedModels')
-                open(cls.key + '.pickle', 'a').close()
-                with open(cls.key + '.pickle', 'wb') as f:
-                    dump(cls.instance, f)
-                chdir(dir)
-                return cls  
-            elif cls.results.solver.termination_condition in [TerminationCondition.maxTimeLimit]:
-                print("Suboptimal solution found. Preparing warm start...")
-
-                # Save variable values for warm start
-                
-                variable_values = {}
-                for var in cls.instance.component_objects(Var, active=True):
-                    if var.is_indexed():
-                        # Loop over all scalar variables in the IndexedVar
-                        for idx in var:
-                            if var[idx].value is None:
-                                pass
-                            else:
-                                variable_values[f"{var.name}[{idx}]"] = value(var[idx])
-                    else:
-                        if var.value is None:
-                            pass
-                        else:
-                            variable_values[var.name] = value(var)
-                chdir(dir)
-                chdir(dir + '/WarmStarts')
-                with open(cls.key+'_warmstart.pickle', 'wb') as f:
-                    dump(variable_values, f)
-                chdir(dir)
-                exit(2)
-                
-        else:
-            cls.results = cls.solver.solve(cls.instance, tee=True)
-            cls.results.write()
-            chdir(dir)
-            chdir(dir + '/SolvedModels')
-            open(cls.key + '.pickle', 'a').close()
-            with open(cls.key + '.pickle', 'wb') as f:
-                dump(cls.instance, f)
-            chdir(dir)
-            return cls
-            
-
+        # Solving the model
+        cls.results = cls.solver.solve(cls.instance, tee=True)
         
+        # Saving the results
+        cls.results.write()
+        open(cache_dir / f"post/{cls.key}.pickle", 'a').close()
+        with open(cache_dir / f"post/{cls.key}.pickle", 'wb') as f:
+            dump(cls.instance, f)
+        return cls
 
     @classmethod
     def get_solve(cls, key, reinitialise=False):
-        dir = getcwd()
+        """
+        This method loads the model from a file and returns an OptimisationModel instance.
+        """
+        # Get the current working directory
+        current_dir = Path(__file__).resolve().parent()
+
+        # Target directory for presolved model
+        cache_dir = current_dir.parent.parent / 'cache'  
+        
         if cls.instance is None or reinitialise:
-            chdir(dir + '/SolvedModels')
-            with open(key + '.pickle', 'rb') as f:
+            with open(cache_dir / f"post/{key}.pickle", 'rb') as f:
                 cls.instance = load(f)
                 cls.key = key
-        chdir(dir)
         return cls
 
-    def generate_plots(self, all=True, demand=False, storage_tanks=False, conversion_process=False, electrolyser_production=False, curtailed=False, grid=False, quality=150):
-        # Initializing some global matplotlib parameters
+    def generate_plots(
+        self, all=True, demand=False, storage_tanks=False, conversion_process=False,
+        electrolyser_production=False, curtailed=False, grid=False, quality=150
+    ):
+        """
+        This method generates plots of the results using matplotlib.
+        Parameters:
+        .. all (bool): If True, generates all plots.
+        .. demand (bool): If True, generates demand plots.
+        .. storage_tanks (bool): If True, generates storage tank plots.
+        .. conversion_process (bool): If True, generates conversion process plots.
+        .. electrolyser_production (bool): If True, generates electrolyser production plots.
+        .. curtailed (bool): If True, generates curtailed energy plots.
+        .. grid (bool): If True, generates grid energy plots.
+        .. quality (int): Quality of the plots (default is 150).
+        """
+        # Set the font properties for the plots
         rcParams['font.family'] = 'serif'
         rcParams['font.serif'] = ['CMU Serif'] + rcParams['font.serif']
         rcParams['figure.dpi'] = quality
 
-        # These colours are imperial's new brand colours... using these for plots
+        # Set the colors for the plots
         colors = [
             "#232333", "#000080", "#0000CD", "#008080", "#232333", "#C71585",
             "#DC143C", "#006400", "#40E0D0", "#EE82EE", "#7B68EE", "#FF0000",
             "#FF8C00", "#00FF7F", "#F5F5F5", "#00BFFF", "#F0E68C", "#AFEEEE",
             "#FFB6C1", "#E6E6FA", "#FA8072", "#FFA500", "#98FB98"
         ]
-        # Setting other global parameters relating to line_width
+
+        # Set the transparency level and line width for the plots
         self.alpha = 0.75
         self.custom_cmap = colors
         self.linewidth = 1.25
 
-        # Generating the plots, in accordance with user chosen boolean values
+        # Generate the plots based on the specified parameters
         if demand or all:
             wind_energy(self)
         if grid or all:
@@ -225,4 +249,4 @@ class OptimModel:
         if electrolyser_production or all:
             hydrogen_production(self)
         objective_cdf(self)
-        LCOH_contributions(self,threshold=0.01)
+        LCOH_contributions(self, threshold=0.01)

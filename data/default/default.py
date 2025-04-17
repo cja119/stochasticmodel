@@ -1,5 +1,5 @@
 
-class Default_Params:
+class DefaultParams:
     def __init__(self):
         self.efficiencies = {'turbine':(0.95,0.97,0.99),                # Assumed 3% loss in transformer losses.
                              'fuel_cell':(0.5,0.6,0.7),                 # Assumed 50% cycle effciciency in fuel cell.
@@ -198,7 +198,7 @@ class Default_Params:
         self.formulation_parameters = {'shipping_regularity': 168,
                                         'ramping_frequency': 1,
                                         'hydrogen_storage_cost_sf': 1,
-                                        'grid_energy_factor': 1.5,
+                                        'grid_energy_factor': 2.5,
                                         'efficiencies':self.efficiencies,
                                         'capital_costs':self.capital_costs,
                                         'operating_costs':self.operating_costs,
