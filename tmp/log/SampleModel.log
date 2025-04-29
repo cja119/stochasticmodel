@@ -1,0 +1,144 @@
+
+Gurobi 12.0.1 (mac64[arm]) logging started Thu Apr 17 15:15:54 2025
+
+Set parameter LogFile to value "/Users/cameronaldren/Documents/Git/StochasticModel/cache/log/SampleModel.log"
+Gurobi Optimizer version 12.0.1 build v12.0.1rc0 (mac64[arm] - Darwin 24.0.0 24A348)
+
+CPU model: Apple M1 Pro
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+
+Non-default parameters:
+MIPGap  0.05
+OptimalityTol  1e-08
+
+Optimize a model with 55407 rows, 43647 columns and 172087 nonzeros
+Model fingerprint: 0x9d7fd970
+Variable types: 41188 continuous, 2459 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [2e-03, 4e+05]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e+00, 3e+03]
+Found heuristic solution: objective 3583.5677709
+Presolve removed 13960 rows and 16289 columns
+Presolve time: 0.11s
+Presolved: 41447 rows, 27358 columns, 130694 nonzeros
+Variable types: 24901 continuous, 2457 integer (0 binary)
+Deterministic concurrent LP optimizer: primal and dual simplex
+Showing primal log only...
+
+Concurrent spin time: 0.00s
+
+Solved with dual simplex
+
+Root relaxation: objective -1.970285e+04, 33925 iterations, 3.74 seconds (4.67 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 -19702.853    0  858 3583.56777 -19702.853   650%     -    4s
+H    0     0                    -19469.61576 -19702.853  1.20%     -    6s
+
+Explored 1 nodes (36302 simplex iterations) in 6.69 seconds (8.55 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 3: -19469.6 -19469.6 3583.57 
+
+Optimal solution found (tolerance 5.00e-02)
+Best objective -1.946961576330e+04, best bound -1.970285335290e+04, gap 1.1980%
+
+Gurobi 12.0.1 (mac64[arm]) logging started Thu Apr 17 15:20:26 2025
+
+Set parameter LogFile to value "/Users/cameronaldren/Documents/Git/StochasticModel/cache/log/SampleModel.log"
+Gurobi Optimizer version 12.0.1 build v12.0.1rc0 (mac64[arm] - Darwin 24.0.0 24A348)
+
+CPU model: Apple M1 Pro
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+
+Non-default parameters:
+MIPGap  0.05
+OptimalityTol  1e-08
+
+Optimize a model with 55407 rows, 43647 columns and 172087 nonzeros
+Model fingerprint: 0x9d7fd970
+Variable types: 41188 continuous, 2459 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [2e-03, 4e+05]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e+00, 3e+03]
+Found heuristic solution: objective 3583.5677709
+Presolve removed 13960 rows and 16289 columns
+Presolve time: 0.11s
+Presolved: 41447 rows, 27358 columns, 130694 nonzeros
+Variable types: 24901 continuous, 2457 integer (0 binary)
+Deterministic concurrent LP optimizer: primal and dual simplex
+Showing primal log only...
+
+Concurrent spin time: 0.00s
+
+Solved with dual simplex
+
+Root relaxation: objective -1.970285e+04, 33925 iterations, 3.78 seconds (4.67 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 -19702.853    0  858 3583.56777 -19702.853   650%     -    4s
+H    0     0                    -19469.61576 -19702.853  1.20%     -    6s
+
+Explored 1 nodes (36302 simplex iterations) in 6.81 seconds (8.55 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 3: -19469.6 -19469.6 3583.57 
+
+Optimal solution found (tolerance 5.00e-02)
+Best objective -1.946961576330e+04, best bound -1.970285335290e+04, gap 1.1980%
+
+Gurobi 12.0.1 (mac64[arm]) logging started Thu Apr 17 15:24:25 2025
+
+Set parameter LogFile to value "/Users/cameronaldren/Documents/Git/StochasticModel/cache/log/SampleModel.log"
+Gurobi Optimizer version 12.0.1 build v12.0.1rc0 (mac64[arm] - Darwin 24.0.0 24A348)
+
+CPU model: Apple M1 Pro
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+
+Non-default parameters:
+MIPGap  0.05
+OptimalityTol  1e-08
+
+Optimize a model with 55407 rows, 43647 columns and 172087 nonzeros
+Model fingerprint: 0x9d7fd970
+Variable types: 41188 continuous, 2459 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [2e-03, 4e+05]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e+00, 3e+03]
+Found heuristic solution: objective 3583.5677709
+Presolve removed 13960 rows and 16289 columns
+Presolve time: 0.11s
+Presolved: 41447 rows, 27358 columns, 130694 nonzeros
+Variable types: 24901 continuous, 2457 integer (0 binary)
+Deterministic concurrent LP optimizer: primal and dual simplex
+Showing primal log only...
+
+Concurrent spin time: 0.00s
+
+Solved with dual simplex
+
+Root relaxation: objective -1.970285e+04, 33925 iterations, 3.79 seconds (4.67 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 -19702.853    0  858 3583.56777 -19702.853   650%     -    4s
+H    0     0                    -19469.61576 -19702.853  1.20%     -    6s
+
+Explored 1 nodes (36302 simplex iterations) in 6.83 seconds (8.55 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 3: -19469.6 -19469.6 3583.57 
+
+Optimal solution found (tolerance 5.00e-02)
+Best objective -1.946961576330e+04, best bound -1.970285335290e+04, gap 1.1980%
