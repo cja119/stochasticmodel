@@ -13,3 +13,9 @@ class DefaultParams:
                                         'hydrogen_storage_cost_sf': 1,
                                         'grid_energy_factor': 2.5})
         pass
+
+    def __enter__(self):
+        return self.formulation_parameters
+    
+    def __exit__(self, exc_type, exc_value, traceback):
+        pass

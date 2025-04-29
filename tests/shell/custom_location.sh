@@ -1,7 +1,11 @@
 #!/bin/bash
 
-
-
+script_dir=$(dirname "$0")
+if [ -f "$script_dir/_creds.sh" ]; then
+    chmod +x "$script_dir/_creds.sh"
+    source "$script_dir/_creds.sh"
+    echo "[INFO] Earthdata credentials loaded successfully"
+fi
 
 vector="NH3"
 grid_connection="False"
