@@ -1,3 +1,14 @@
-# Stochastic Operations Model [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Imperial](https://img.shields.io/badge/Imperial-0000C5.svg)](https://www.imperial.ac.uk) [![DOI](https://zenodo.org/badge/918136747.svg)](https://doi.org/10.5281/zenodo.14678255)
+# Stochastic Operations Model 
 
 This is a multistage stochstic model of a hydrogen export facility. This is implemented as a python module as it is used in infrastructure planning throughout the rest of my research. 
+<p align="center">
+<a href="https://opensource.org/licenses/MIT">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+</a>
+<a href="https://www.imperial.ac.uk">
+  <img src="https://img.shields.io/badge/Imperial-0000C5.svg" alt="Imperial">
+</a>
+<a href="https://doi.org/10.5281/zenodo.14678255">
+  <img src="https://zenodo.org/badge/918136747.svg" alt="DOI">
+</a>
+</p>
