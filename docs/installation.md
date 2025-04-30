@@ -1,8 +1,8 @@
 
 # Installation Guide
 
-## Dependencies [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3124/) [![Conda 24.5.0](https://img.shields.io/badge/conda-24.5.0-green.svg)](https://anaconda.org/anaconda/conda/files?page=1&type=conda&version=24.5.0) [![Gurobi 11.03](https://img.shields.io/badge/gurobi-11.0.3-red.svg)](https://www.gurobi.com/downloads/gurobi-optimizer-release-notes-v11-0-3/)
-In order to run this model, a licence for [gurobi](https://www.gurobi.com/) is required, as is an installation of [conda](https://docs.anaconda.com/miniconda/). 
+## Dependencies [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3124/) [![Gurobi 11.03](https://img.shields.io/badge/gurobi-11.0.3-red.svg)](https://www.gurobi.com/downloads/gurobi-optimizer-release-notes-v11-0-3/)
+In order to run this model, a licence for [gurobi](https://www.gurobi.com/) is required.
 
 ## Quick Start
 For a quick start, it is first necessary to install PystochOpt, following the instructions available in that repository. Then run the folliwng command to clone this repository to your local machine:
