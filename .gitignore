@@ -4,3 +4,4 @@ tmp/**
 !/tmp/**/.gitkeep
 /tmp/
 /tests/shell/_*
+/src/*.egg-info
