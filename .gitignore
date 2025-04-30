@@ -1,5 +1,8 @@
 __pycache__/
-/cache/**
-!/cache/
-!/cache/**/
-!/cache/**/.gitkeep
+tmp/**
+!/tmp/**/
+!/tmp/**/.gitkeep
+/tmp/
+/tests/shell/_*
+/src/*.egg-info
+/build/*

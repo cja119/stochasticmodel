@@ -1,0 +1,33 @@
+meteor_py@ git+https://github.com/cja119/meteor_py.git
+PyStochOpt@ git+https://github.com/cja119/pystochopt.git
+numpy
+scipy
+matplotlib
+pandas
+scikit-learn
+dask==2025.3.0
+distributed
+pyomo
+maturin
+bokeh
+plotly
+cartopy
+ipykernel
+ipython
+jupyter_client
+jupyter_core
+aiohttp
+aiobotocore
+botocore
+aiosignal
+aioitertools
+fsspec
+earthaccess
+brotli
+lz4
+fonttools
+cloudpickle
+dill
+psutil
+pqdm
+gurobipy
