@@ -1,3 +1,3 @@
-from .default import DefaultParams
+from .core import DefaultParams
 
 __all__ = ['DefaultParams']
