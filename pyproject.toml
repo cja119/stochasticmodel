@@ -19,7 +19,7 @@ dependencies = [
     "matplotlib",
     "pandas",
     "scikit-learn",
-    "dask>=2025.3.0",
+    "dask>=2025.2.0",
     "distributed",
     "pyomo",
     "maturin",
