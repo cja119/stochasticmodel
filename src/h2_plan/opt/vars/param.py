@@ -492,12 +492,20 @@ def generate_parameters(model, parameters, filename, filepath):
     model.hydrogen_storage_cost_sf = Param(
         initialize=parameters['hydrogen_storage_cost_sf']
     )
-    model.hydrogen_storage_unit_capital_cost = Param(
-        initialize=parameters['capital_costs']['hydrogen_storage'], mutable=False
-    )
-    model.hydrogen_storage_unit_operating_cost = Param(
-        initialize=parameters['operating_costs']['hydrogen_storage'], mutable=False
-    )
+    if not parameters['booleans']['geographical_storage']:
+        model.hydrogen_storage_unit_capital_cost = Param(
+            initialize=parameters['capital_costs']['hydrogen_storage'], mutable=False
+        )
+        model.hydrogen_storage_unit_operating_cost = Param(
+            initialize=parameters['operating_costs']['hydrogen_storage'], mutable=False
+        )
+    else:
+        model.hydrogen_storage_unit_capital_cost = Param(
+            initialize=parameters['capital_costs']['geographical_storage'], mutable=False
+        )
+        model.hydrogen_storage_unit_operating_cost = Param(
+            initialize=parameters['operating_costs']['geographical_storage'], mutable=False
+        )
     model.fuel_cell_unit_capital_cost = Param(
         initialize=parameters['capital_costs']['fuel_cell'], mutable=False
     )

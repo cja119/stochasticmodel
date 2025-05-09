@@ -22,7 +22,8 @@ booleans = {
     'grid_connection': False,
     'wind': sys.argv[6] in ['Wind', 'Both'],
     'solar': sys.argv[6] in ['Solar', 'Both'],
-    'net_present_value': True
+    'net_present_value': True,
+    'geographical_storage': True,
 }
 
 parameters = DefaultParams().formulation_parameters
