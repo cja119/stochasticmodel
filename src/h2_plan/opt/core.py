@@ -95,7 +95,7 @@ class H2Planning:
     def build_model(self):
         self.instance = self.model.create_instance()
         current_dir = Path(__file__).resolve().parent
-        presolve_dir = current_dir.parent.parent.parent / "tmp" / 'pre'
+        presolve_dir = current_dir.parent / "tmp" / 'pre'
 
         open(presolve_dir/f"{self.key}.pickle", 'a').close()
         with open(presolve_dir/f"{self.key}.pickle", 'wb') as f:
@@ -105,7 +105,7 @@ class H2Planning:
     @staticmethod
     def get_param_dict(file_name):
         current_dir = Path(__file__).resolve().parent
-        presolve_dir = current_dir.parent.parent.parent / "tmp" / 'pre'
+        presolve_dir = current_dir.parent.parent / "tmp" / 'pre'
         open(presolve_dir/f"{file_name}.pickle", 'a').close()
         with open(presolve_dir/f"{file_name}.pickle", 'rb') as f:
             parameters = load(f)
@@ -115,7 +115,7 @@ class H2Planning:
     @staticmethod
     def get_parameters(file_name):
         current_dir = Path(__file__).resolve().parent
-        presolve_dir = current_dir.parent.parent.parent / "tmp" / 'pre'
+        presolve_dir = current_dir.parent.parent / "tmp" / 'pre'
         open(presolve_dir/f"{file_name}.pickle", 'a').close()
         with open(presolve_dir/f"{file_name}.pickle" 'rb') as f:
             parameters = load(f)
@@ -148,7 +148,7 @@ class H2Planning:
         current_dir = Path(__file__).resolve().parent
 
         # Target directory for presolved model
-        cache_dir = current_dir.parent.parent.parent / "tmp" 
+        cache_dir = current_dir.parent / "tmp" 
 
         # Check if the instance is None or if reinitialisation is required
         if cls.instance is None or reinitialise:

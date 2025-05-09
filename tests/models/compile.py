@@ -21,7 +21,8 @@ booleans = {
    'wind': sys.argv[6] in ['Wind', 'Both'],
    'solar': sys.argv[6] in ['Solar', 'Both'],
    'net_present_value': True,
-   'grid_wheel': False
+   'grid_wheel': False,
+   'geographical_storage': False,
 }
 
 parameters = DefaultParams().formulation_parameters
