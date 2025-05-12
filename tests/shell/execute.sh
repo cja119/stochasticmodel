@@ -1,13 +1,13 @@
 #!/bin/bash
 
 
-vector="NH3"
+vector="LH2"
 grid_connection="False"
 n_stages=3
 n_branches=3
 stage_duration=168
 renewables=Wind
-key='test_model'
+key='test_model_LH2'
 random_seed=42
 feasibility=1e-6
 optimality=1e-8

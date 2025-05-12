@@ -1,0 +1,92 @@
+
+Gurobi 12.0.2 (mac64[arm]) logging started Mon May 12 14:03:59 2025
+
+Set parameter LogFile to value "/Users/cameronaldren/Documents/Git/StochasticModel/src/h2_plan/tmp/log/test_model_LH2.log"
+Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (mac64[arm] - Darwin 24.0.0 24A348)
+
+CPU model: Apple M1 Pro
+Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+
+Non-default parameters:
+MIPGap  0.05
+OptimalityTol  1e-08
+
+Optimize a model with 61209 rows, 48255 columns and 194166 nonzeros
+Model fingerprint: 0xa45cbbea
+Variable types: 45540 continuous, 2715 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [2e-03, 2e+05]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+01, 6e+03]
+Found heuristic solution: objective 6229.2065589
+Presolve removed 13611 rows and 16175 columns
+Presolve time: 0.12s
+Presolved: 47598 rows, 32080 columns, 150850 nonzeros
+Variable types: 29368 continuous, 2712 integer (0 binary)
+Deterministic concurrent LP optimizer: primal and dual simplex
+Showing primal log only...
+
+
+Root simplex log...
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+   24693    6.2291786e+03   0.000000e+00   1.602069e+02      5s
+Concurrent spin time: 0.00s
+
+Solved with dual simplex
+
+Root simplex log...
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+   37557   -1.1104101e+04   0.000000e+00   0.000000e+00      6s
+
+Root relaxation: objective -1.110410e+04, 37557 iterations, 5.83 seconds (7.80 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 -11104.101    0  879 6229.20656 -11104.101   278%     -    6s
+     0     0 -11094.655    0  919 6229.20656 -11094.655   278%     -    8s
+     0     0 -11094.654    0  918 6229.20656 -11094.654   278%     -   11s
+     0     0 -11092.146    0  928 6229.20656 -11092.146   278%     -   12s
+     0     0 -11092.109    0  934 6229.20656 -11092.109   278%     -   12s
+     0     0 -11092.109    0  933 6229.20656 -11092.109   278%     -   12s
+     0     0 -11088.609    0  943 6229.20656 -11088.609   278%     -   13s
+     0     0 -11088.404    0  945 6229.20656 -11088.404   278%     -   14s
+     0     0 -11088.403    0  943 6229.20656 -11088.403   278%     -   14s
+     0     0 -11088.163    0  950 6229.20656 -11088.163   278%     -   15s
+     0     0 -11088.156    0  950 6229.20656 -11088.156   278%     -   15s
+     0     0 -11088.098    0  953 6229.20656 -11088.098   278%     -   15s
+     0     0 -11088.082    0  956 6229.20656 -11088.082   278%     -   15s
+     0     0 -11088.081    0  957 6229.20656 -11088.081   278%     -   16s
+     0     0 -11087.963    0  960 6229.20656 -11087.963   278%     -   16s
+     0     0 -11087.958    0  961 6229.20656 -11087.958   278%     -   16s
+     0     0 -11087.958    0  961 6229.20656 -11087.958   278%     -   16s
+     0     0 -11087.885    0  959 6229.20656 -11087.885   278%     -   16s
+     0     0 -11087.869    0  962 6229.20656 -11087.869   278%     -   16s
+     0     0 -11087.869    0  963 6229.20656 -11087.869   278%     -   16s
+     0     0 -11087.862    0  964 6229.20656 -11087.862   278%     -   16s
+     0     0 -11087.861    0  964 6229.20656 -11087.861   278%     -   16s
+     0     0 -11087.859    0  965 6229.20656 -11087.859   278%     -   16s
+     0     0 -11087.859    0  965 6229.20656 -11087.859   278%     -   17s
+     0     0 -11087.857    0  965 6229.20656 -11087.857   278%     -   17s
+     0     0 -11087.857    0  965 6229.20656 -11087.857   278%     -   18s
+     0     2 -11087.857    0  965 6229.20656 -11087.857   278%     -   19s
+     7    12 -10712.189    3  991 6229.20656 -11086.034   278%   413   20s
+    60    63 -10692.847   10 1023 6229.20656 -11085.512   278%   314   27s
+    68    83 -10668.968   11  995 6229.20656 -11085.512   278%   281   33s
+H   91    83                    -10737.72328 -11085.512  3.24%   227   33s
+
+Cutting planes:
+  Gomory: 1
+  Implied bound: 3
+  MIR: 727
+
+Explored 92 nodes (60639 simplex iterations) in 33.37 seconds (58.74 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 3: -10737.7 -10737.7 6229.21 
+
+Optimal solution found (tolerance 5.00e-02)
+Best objective -1.073772328262e+04, best bound -1.108551215583e+04, gap 3.2389%

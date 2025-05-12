@@ -44,5 +44,6 @@ dependencies = [
     "dill",
     "psutil",
     "pqdm",
-    "gurobipy"
+    "gurobipy",
+    "pyyaml"
 ]

@@ -16,3 +16,5 @@ solve = H2Planning.class_solve(
     )
 
 solve.generate_plots(solve)
+
+print(solve.instance.compression_capacity.value)
