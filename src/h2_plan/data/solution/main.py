@@ -42,7 +42,7 @@ class PlanningResults:
             "compression_capacity": mi.compression_capacity.value,
             "electrolyser_capacity": sum(mi.capacity_electrolysers[k].value for k in mi.electrolysers),
             "conversion_trains_number": (
-                sum(mi.capacity_vector_production[q].value for q in mi.vectors)
+                sum(mi.capacity_vector_production[q] for q in mi.vectors)
             ),
             "capex": mi.CAPEX.value,
             "opex": sum(mi.OPEX[s].value for s in mi.scenario)
