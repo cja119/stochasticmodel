@@ -185,11 +185,12 @@ class H2Planning:
             if parallel:
                 cls.solver.options['Threads'] = 8
                 cls.solver.options['DistributedMIPJobs'] = 2
-                solve_kwargs['tee'] = False
+                
         if verbose is False:
             cls.solver.options['LogToConsole'] = 0
             cls.solver.options.pop('LogFile', None)
             cls.solver.options['OutputFlag'] = 0
+            solve_kwargs['tee'] = False
 
 
         # Solving the model
