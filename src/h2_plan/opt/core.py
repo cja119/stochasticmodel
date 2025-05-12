@@ -186,8 +186,8 @@ class H2Planning:
                 cls.solver.options['DistributedMIPJobs'] = 2
         if verbose is False:
             cls.solver.options['LogToConsole'] = 0
-            cls.solver.options['LogFile'] = None
-            
+            cls.solver.options.pop('LogFile', None)
+
 
         # Solving the model
         cls.results = cls.solver.solve(cls.instance, **solve_kwargs)
