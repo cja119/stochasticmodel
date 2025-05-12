@@ -185,6 +185,7 @@ class H2Planning:
             if parallel:
                 cls.solver.options['Threads'] = 8
                 cls.solver.options['DistributedMIPJobs'] = 2
+                solve_kwargs['tee'] = False
         if verbose is False:
             cls.solver.options['LogToConsole'] = 0
             cls.solver.options.pop('LogFile', None)
@@ -195,7 +196,8 @@ class H2Planning:
         cls.results = cls.solver.solve(cls.instance, **solve_kwargs)
         
         # Saving the results
-        cls.results.write()
+        if verbose:
+            cls.results.write()
         open(cache_dir / f"post/{cls.key}.pickle", 'a').close()
         with open(cache_dir / f"post/{cls.key}.pickle", 'wb') as f:
             dump(cls.instance, f)
