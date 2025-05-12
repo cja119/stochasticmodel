@@ -126,7 +126,7 @@ class H2Planning:
     def class_solve(
         cls, feasibility=1e-2, optimality=1e-8, mip_percentage=5,
         random_seed=42, solver='gurobi', key=None, parallel=False, time=None,
-        reinitialise=False
+        reinitialise=False, verbose = True
     ):
         """
         This method solves the optimisation model using the specified solver
@@ -184,6 +184,9 @@ class H2Planning:
             if parallel:
                 cls.solver.options['Threads'] = 8
                 cls.solver.options['DistributedMIPJobs'] = 2
+        if verbose is False:
+            cls.solver.options['LogToConsole'] = 0
+            cls.solver.options['LogFile'] = None
             
 
         # Solving the model
