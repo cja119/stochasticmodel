@@ -29,7 +29,6 @@ class PlanningResults:
         Extracts the results from the model, including ranges for all variables.
         """
 
-
         mi = self.model.instance
 
         self._res = {
@@ -58,3 +57,5 @@ class PlanningResults:
             
         with open(targ / self.filename, "w") as file:
             yaml.dump(self._res, file)
+
+        return self._res
