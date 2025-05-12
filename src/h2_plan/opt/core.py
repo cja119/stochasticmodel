@@ -146,6 +146,7 @@ class H2Planning:
         """
         # Get the current working directory
         current_dir = Path(__file__).resolve().parent
+        cls.filename = key
 
         # Target directory for presolved model
         cache_dir = current_dir.parent / "tmp" 
