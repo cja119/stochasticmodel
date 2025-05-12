@@ -34,7 +34,7 @@ class PlanningResults:
         self._res = {
             "renewable_energy_capacity": (
                 mi.capacity_solar.value if mi.solar 
-                else mi.capacity_wind.value if mi.wind 
+                else mi.capacity_number_turbines.value if mi.wind 
                 else 0
             ),
             "hydrogen_storage_capacity": mi.capacity_gH2_storage.value,

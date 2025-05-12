@@ -1,8 +1,8 @@
 __pycache__/
-tmp/**
-!/tmp/**/
-!/tmp/**/.gitkeep
-/tmp/
+/src/h2_plan/tmp/**
+!/src/h2_plan/tmp/**/
+!/src/h2_plan/tmp/**/.gitkeep
+src/h2_plan/tmp/
 /tests/shell/_*
 /src/*.egg-info
 /build/*
