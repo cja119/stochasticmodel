@@ -187,7 +187,7 @@ class H2Planning:
         if verbose is False:
             cls.solver.options['LogToConsole'] = 0
             cls.solver.options.pop('LogFile', None)
-            cls.solver['OutputFlag'] = 0
+            cls.solver.options['OutputFlag'] = 0
 
 
         # Solving the model
