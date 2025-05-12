@@ -55,7 +55,7 @@ class PlanningResults:
         if not targ.exists():
             targ.mkdir(parents=True, exist_ok=True)
             
-        with open(targ / self.filename, "w") as file:
+        with open(targ / self.model.filename, "w") as file:
             yaml.dump(self._res, file)
 
         return self._res
