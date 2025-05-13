@@ -46,6 +46,8 @@ class PlanningResults:
             ),
             "capex": mi.CAPEX.value,
             "opex": sum(mi.OPEX[s].value for s in mi.scenario) / len(mi.scenario),
+            "vector": mi.vectors[0],
+            'renewables': 'solar' if mi.solar else 'wind' if mi.wind else 'none',
         }
         if targ is None:
             targ = Path(__file__).parent.parent.parent / "tmp/yml"
