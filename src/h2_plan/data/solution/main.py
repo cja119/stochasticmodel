@@ -46,7 +46,7 @@ class PlanningResults:
             ),
             "capex": mi.CAPEX.value,
             "opex": sum(mi.OPEX[s].value for s in mi.scenario) / len(mi.scenario),
-            "vector": mi.vectors[0],
+            "vector": mi.vectors.value,
             'renewables': 'solar' if mi.solar else 'wind' if mi.wind else 'none',
         }
         if targ is None:
