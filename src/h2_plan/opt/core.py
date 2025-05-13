@@ -150,6 +150,7 @@ class H2Planning:
 
         # Target directory for presolved model
         cache_dir = current_dir.parent / "tmp" 
+        start_time = time.time()
 
         # Check if the instance is None or if reinitialisation is required
         if cls.instance is None or reinitialise:
@@ -196,6 +197,8 @@ class H2Planning:
         # Solving the model
         cls.results = cls.solver.solve(cls.instance, **solve_kwargs)
         
+        print(f'[INFO] Solved in {time.time() - start_time:.2f} seconds. Status = {cls.results.solver.termination_condition}')
+
         # Saving the results
         if verbose:
             cls.results.write()
