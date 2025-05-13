@@ -45,7 +45,7 @@ class PlanningResults:
                 sum(mi.capacity_vector_production[q] for q in mi.vectors)
             ),
             "capex": mi.CAPEX.value,
-            "opex": sum(mi.OPEX[s].value for s in mi.scenario)
+            "opex": sum(mi.OPEX[s].value for s in mi.scenario) / len(mi.scenario),
         }
         if targ is None:
             targ = Path(__file__).parent.parent.parent / "tmp/yml"
