@@ -542,6 +542,9 @@ def generate_inequalities(model):
     model.origin_vector_storage_limit = Constraint(
         model.full_set, model.vectors, rule=origin_vector_storage_limit
     )
+    model.origin_vector_storage_lower_limit = Constraint(
+        model.full_set, model.vectors, rule=origin_storage_min
+    )
     model.shipping_balance_charging = Constraint(
         model.shipping_continuity_set, model.vectors, rule=shipping_balance_charging
     )
