@@ -356,7 +356,7 @@ def origin_vector_storage_limit(self, s, t, d, q):
 
 
 def origin_storage_min(self, s, t, d, q):
-    return 0.2 * self.capacity_vector_storage_origin[q] - self.vector_storage_origin[s, t, d, q] <= 0
+    return 0.05 * self.capacity_vector_storage_origin[q] - self.vector_storage_origin[s, t, d, q] <= 0
 
 
 def shipping_balance_charging_t_0(self, q):
