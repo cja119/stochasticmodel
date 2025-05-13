@@ -125,7 +125,7 @@ class H2Planning:
     @classmethod
     def class_solve(
         cls, feasibility=1e-2, optimality=1e-8, mip_percentage=5,
-        random_seed=42, solver='gurobi', key=None, parallel=False, time=None,
+        random_seed=42, solver='gurobi', key=None, parallel=False, timer=None,
         reinitialise=False, verbose = True
     ):
         """
