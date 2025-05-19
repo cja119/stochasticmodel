@@ -1,3 +1,4 @@
 include **/*.yml
 include **/*.yaml
 include **/*.json
+include **/*.pickle

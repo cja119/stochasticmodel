@@ -96,7 +96,9 @@ class H2Planning:
         self.instance = self.model.create_instance()
         current_dir = Path(__file__).resolve().parent
         presolve_dir = current_dir.parent / "tmp" / 'pre'
-
+        # Check if the directory exists, if not create it
+        if not presolve_dir.exists():
+            presolve_dir.mkdir(parents=True, exist_ok=True)
         open(presolve_dir/f"{self.key}.pickle", 'a').close()
         with open(presolve_dir/f"{self.key}.pickle", 'wb') as f:
             dump(self.instance, f)
@@ -106,6 +108,10 @@ class H2Planning:
     def get_param_dict(file_name):
         current_dir = Path(__file__).resolve().parent
         presolve_dir = current_dir.parent.parent / "tmp" / 'pre'
+        # Check if the file exists
+        if not (presolve_dir/f"{file_name}.pickle").exists():
+            print(f"[ERROR] File {file_name}.pickle does not exist in {presolve_dir}")
+            exit(1)
         open(presolve_dir/f"{file_name}.pickle", 'a').close()
         with open(presolve_dir/f"{file_name}.pickle", 'rb') as f:
             parameters = load(f)
@@ -116,6 +122,10 @@ class H2Planning:
     def get_parameters(file_name):
         current_dir = Path(__file__).resolve().parent
         presolve_dir = current_dir.parent.parent / "tmp" / 'pre'
+        # Check if the file exists
+        if not (presolve_dir/f"{file_name}.pickle").exists():
+            print(f"[ERROR] File {file_name}.pickle does not exist in {presolve_dir}")
+            exit(1)
         open(presolve_dir/f"{file_name}.pickle", 'a').close()
         with open(presolve_dir/f"{file_name}.pickle" 'rb') as f:
             parameters = load(f)
@@ -202,7 +212,13 @@ class H2Planning:
         # Saving the results
         if verbose:
             cls.results.write()
+
         open(cache_dir / f"post/{cls.key}.pickle", 'a').close()
+
+        # Check if the directory exists, if not create it
+        if not (cache_dir / "post").exists():
+            (cache_dir / "post").mkdir(parents=True, exist_ok=True)
+            
         with open(cache_dir / f"post/{cls.key}.pickle", 'wb') as f:
             dump(cls.instance, f)
         return cls
