@@ -1,0 +1,3 @@
+include **/*.yml
+include **/*.yaml
+include **/*.json
