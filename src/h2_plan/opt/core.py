@@ -212,13 +212,14 @@ class H2Planning:
         # Saving the results
         if verbose:
             cls.results.write()
-
-        open(cache_dir / f"post/{cls.key}.pickle", 'a').close()
-
+        
         # Check if the directory exists, if not create it
         if not (cache_dir / "post").exists():
             (cache_dir / "post").mkdir(parents=True, exist_ok=True)
-            
+
+
+        open(cache_dir / f"post/{cls.key}.pickle", 'a').close()
+
         with open(cache_dir / f"post/{cls.key}.pickle", 'wb') as f:
             dump(cls.instance, f)
         return cls
