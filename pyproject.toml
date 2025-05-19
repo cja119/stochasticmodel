@@ -1,16 +1,20 @@
 [build-system]
-requires =  ["setuptools", "wheel", "maturin"]
+requires = ["setuptools", "wheel", "maturin"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools]
+include-package-data = true
+
 [tool.setuptools.package-data]
-"h2_plan" = ["*.json", "*.yml", "*.yaml"]
+"h2_plan" = ["**/*.json", "**/*.yml", "**/*.yaml"]
 
 [project]
 name = "h2_plan"
 version = "0.1"
-description = "Stochastic hydrogen planning model "
+description = "Stochastic hydrogen planning model"
 authors = [
-  { name = "Cameron Aldren", email = "cameronaldren@icloud.com" }]
+  { name = "Cameron Aldren", email = "cameronaldren@icloud.com" }
+]
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
@@ -47,4 +51,5 @@ dependencies = [
     "psutil",
     "pqdm",
     "gurobipy",
-    "pyyaml"]
+    "pyyaml"
+]
