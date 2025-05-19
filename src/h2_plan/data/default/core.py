@@ -13,6 +13,21 @@ class DefaultParams:
                                         'hydrogen_storage_cost_sf': 1,
                                         'grid_energy_factor': 2.5})
         pass
+    
+    def filter_params(self,key):
+        """
+        Performs a depth search to find the key in the dictionary and picks the value based on the key.
+        """
+        def recursive_filter(d, key):
+            if isinstance(d, dict):
+                if key in d:
+                    return d[key]
+                return {k: recursive_filter(v, key) for k, v in d.items()}
+            elif isinstance(d, list):
+                return [recursive_filter(item, key) for item in d]
+            return d
+
+        self.formulation_parameters = recursive_filter(self.formulation_parameters, key)
 
     def __enter__(self):
         return self.formulation_parameters

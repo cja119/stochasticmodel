@@ -44,6 +44,9 @@ class PlanningResults:
             "conversion_trains_number": (
                 sum(mi.capacity_vector_production[q] for q in mi.vectors)
             ),
+            "vector_storage_capacity": (
+                sum(mi.capacity_vector_storage_origin[q].value for q in mi.vectors)
+            ),
             "capex": mi.CAPEX.value,
             "opex": sum(mi.OPEX[s].value for s in mi.scenario) / len(mi.scenario),
             "vector": mi.vectors.at(1),
