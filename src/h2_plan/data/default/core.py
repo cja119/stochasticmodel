@@ -14,6 +14,8 @@ class DefaultParams:
                                         'grid_energy_factor': 2.5})
         pass
     
+        
+
     def filter_params(self,key):
         """
         Performs a depth search to find the key in the dictionary and picks the value based on the key.

@@ -182,7 +182,7 @@
     "shipping": {
         "storage_capacity": {
             "LH2": 14160,
-            "NH3": 32500
+            "NH3": 130000
         },
         "fuel_consumption": {
             "LH2": {
@@ -197,7 +197,15 @@
             }
         },
         "journey_time": 360,
-        "loading_time": 8
+        "loading_time": 8,
+        "charter_rate": {
+            "LH2":10100,
+            "NH3": 6360
+        },
+        "berthing_rate":{
+            "LH2": 9800,
+            "NH3": 9800
+        }
     },
     "miscillaneous": {
         "reconversion_electrical_demand": {

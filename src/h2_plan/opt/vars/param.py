@@ -156,7 +156,7 @@ def generate_parameters(model, parameters, filename, filepath):
             )
     else:
         wind_samples = stochastic_grid.add_dataset(
-            filename,filepath, cluster=False
+            filename, filepath, cluster=False
         )
 
     # Generate sets for vector continuity and shipping
