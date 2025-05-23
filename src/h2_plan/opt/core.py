@@ -3,7 +3,6 @@ This code defines the OptimisationModel class, which is used to create and solve
 """
 
 import time
-from os import getcwd, chdir
 from sys import exit
 from dill import dump, load
 from pathlib import Path
@@ -102,7 +101,6 @@ class H2Planning:
         open(presolve_dir/f"{self.key}.pickle", 'a').close()
         with open(presolve_dir/f"{self.key}.pickle", 'wb') as f:
             dump(self.instance, f)
-        chdir(current_dir)
 
     @staticmethod
     def get_param_dict(file_name):
@@ -115,7 +113,6 @@ class H2Planning:
         open(presolve_dir/f"{file_name}.pickle", 'a').close()
         with open(presolve_dir/f"{file_name}.pickle", 'rb') as f:
             parameters = load(f)
-        chdir(current_dir)
         return H2Planning(parameters, key=file_name)
 
     @staticmethod
