@@ -5,6 +5,7 @@ to the planning.
 
 from __future__ import annotations
 from h2_plan.opt import H2Planning
+from collections import defaultdict
 from typing import Optional
 from pyomo import value
 from pathlib import Path
@@ -66,7 +67,7 @@ class PlanningResults:
 
         return self._res
 
-    def evaluate_total_capex_terms(self):
+    def capex(self):
         results = {}
         model = self.model.instance
         # Wind CAPEX
@@ -157,3 +158,92 @@ class PlanningResults:
         results["CAPEX_constraint_rhs"] = value(model.CAPEX)
     
         return results
+        
+    def opex(self):
+        model = self.model.instance
+        
+        # Initialize accumulator for each component
+        accum = defaultdict(float)
+        count = 0
+    
+        for s in model.S:  # or replace `model.S` with your actual set
+            count += 1
+    
+            # Wind
+            if value(model.wind):
+                accum["wind_opex"] += (
+                    value(model.turbine_unit_operating_cost)
+                    * value(model.capacity_number_turbines)
+                    * value(model.amortisation_plant)
+                )
+    
+            # Solar
+            if value(model.solar):
+                accum["solar_opex"] += (
+                    value(model.solar_unit_operating_cost)
+                    * value(model.capacity_solar)
+                    * value(model.amortisation_plant)
+                )
+    
+            # Fuel Cell
+            accum["fuel_cell_opex"] += (
+                value(model.fuel_cell_unit_operating_cost)
+                * value(model.capacity_HFC)
+                * value(model.amortisation_plant)
+            )
+    
+            # Grid
+            if value(model.grid_connection):
+                accum["grid_opex"] += (
+                    value(model.net_grid[s])
+                    * value(model.grid_energy_factor)
+                    * value(model.LCAP)
+                    * value(model.amortisation_plant)
+                    * (8760 / value(model.end_time_index))
+                )
+    
+            # Electrolyser
+            for k in model.electrolysers:
+                accum["electrolyser_opex"] += (
+                    value(model.electrolyser_unit_operating_cost[k])
+                    * value(model.capacity_electrolysers[k])
+                    * value(model.amortisation_plant)
+                )
+    
+            # Compressor
+            accum["compressor_opex"] += (
+                value(model.compression_capacity)
+                * value(model.compressor_unit_operating_cost)
+                * value(model.amortisation_plant)
+                / value(model.hydrogen_LHV)
+            )
+    
+            # H2 Storage
+            accum["hydrogen_storage_opex"] += (
+                value(model.hydrogen_storage_unit_operating_cost)
+                / value(model.hydrogen_LHV)
+                * value(model.capacity_gH2_storage)
+                * value(model.amortisation_plant)
+                * value(model.hydrogen_storage_cost_sf)
+            )
+    
+            # Vector production
+            for q in model.vectors:
+                accum["vector_production_opex"] += (
+                    value(model.vector_production_unit_operating_cost[q])
+                    * value(model.capacity_vector_production[q])
+                    * value(model.amortisation_plant)
+                )
+    
+            # Vector storage
+            for q in model.vectors:
+                accum["vector_storage_opex"] += (
+                    value(model.capacity_vector_storage_origin[q])
+                    * value(model.vector_storage_unit_operating_cost[q])
+                ) * value(model.amortisation_plant)
+    
+        # Compute averages
+        averaged = {k: v / count for k, v in accum.items()}
+        averaged["average_total_OPEX"] = sum(averaged.values())
+    
+        return averaged
