@@ -6,6 +6,7 @@ to the planning.
 from __future__ import annotations
 from h2_plan.opt import H2Planning
 from typing import Optional
+from pyomo import value
 from pathlib import Path
 import yaml
 
@@ -64,3 +65,95 @@ class PlanningResults:
             yaml.dump(self._res, file)
 
         return self._res
+
+    def evaluate_total_capex_terms(self):
+        results = {}
+        model = self.model.instance
+        # Wind CAPEX
+        if value(model.wind):
+            wind_capex = (
+                value(model.turbine_unit_capital_cost)
+                * value(model.capacity_number_turbines)
+                * value(model.amortisation_turbine)
+            )
+            results["wind_capex"] = wind_capex
+        else:
+            results["wind_capex"] = 0.0
+    
+        # Solar CAPEX
+        if value(model.solar):
+            solar_capex = (
+                value(model.solar_unit_capital_cost)
+                * value(model.capacity_solar)
+                * value(model.amortisation_solar)
+            )
+            results["solar_capex"] = solar_capex
+        else:
+            results["solar_capex"] = 0.0
+    
+        # Fuel cell CAPEX
+        fuel_cell_capex = (
+            value(model.fuel_cell_unit_capital_cost)
+            * value(model.capacity_HFC)
+            * value(model.amortisation_fuel_cell)
+        )
+        results["fuel_cell_capex"] = fuel_cell_capex
+    
+        # Electrolysers CAPEX
+        electrolyser_capex = 0.0
+        for k in model.electrolysers:
+            term = (
+                value(model.electrolyser_unit_capital_cost[k])
+                * value(model.capacity_electrolysers[k])
+                * value(model.amortisation_electrolysers[k])
+            )
+            electrolyser_capex += term
+        results["electrolyser_capex"] = electrolyser_capex
+    
+        # Compressor CAPEX
+        compressor_capex = (
+            value(model.compression_capacity)
+            * value(model.compressor_unit_capital_cost)
+            * value(model.amortisation_compressor)
+            / value(model.hydrogen_LHV)
+        )
+        results["compressor_capex"] = compressor_capex
+    
+        # H2 Storage CAPEX
+        hydrogen_storage_capex = (
+            value(model.hydrogen_storage_unit_capital_cost)
+            / value(model.hydrogen_LHV)
+            * value(model.capacity_gH2_storage)
+            * value(model.amortisation_hydrogen_storage)
+            * value(model.hydrogen_storage_cost_sf)
+        )
+        results["hydrogen_storage_capex"] = hydrogen_storage_capex
+    
+        # Vector Production CAPEX
+        vector_production_capex = 0.0
+        for q in model.vectors:
+            term = (
+                value(model.vector_production_unit_capital_cost[q])
+                * value(model.capacity_vector_production[q])
+                * value(model.amortisation_vector_production[q])
+            )
+            vector_production_capex += term
+        results["vector_production_capex"] = vector_production_capex
+    
+        # Vector Storage CAPEX
+        vector_storage_capex = 0.0
+        for q in model.vectors:
+            term = (
+                value(model.capacity_vector_storage_origin[q])
+                * value(model.vector_storage_unit_capital_cost[q])
+                * value(model.amortisation_vector_storage[q])
+            )
+            vector_storage_capex += term
+        results["vector_storage_capex"] = vector_storage_capex
+    
+        # Total CAPEX
+        total = sum(results.values())
+        results["total_CAPEX"] = total
+        results["CAPEX_constraint_rhs"] = value(model.CAPEX)
+    
+        return results
