@@ -7,7 +7,7 @@ from __future__ import annotations
 from h2_plan.opt import H2Planning
 from collections import defaultdict
 from typing import Optional
-from pyomo import value
+from pyomo.environ import value
 from pathlib import Path
 import yaml
 
