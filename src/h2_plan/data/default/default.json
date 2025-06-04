@@ -184,11 +184,11 @@
             "LH2": 14160,
             "NH3": 130000
         },
-        "storage_capacity_s":{
+        "storage_capacity_s": {
             "LH2": {
                 "small": 3542.5,
-                "medium":7085,
-                "large": 14160,
+                "medium": 7085,
+                "large": 14160
             },
             "NH3": {
                 "small": 32500,
@@ -199,7 +199,7 @@
         "fuel_consumption": {
             "LH2": {
                 "small": 1.4021739130434783,
-                "medium":2.240217391304348,
+                "medium": 2.240217391304348,
                 "large": 3.5934782608695657
             },
             "NH3": {
@@ -211,31 +211,34 @@
         "journey_time": 360,
         "loading_time": 8,
         "charter_rate_s": {
-            "LH2":{
+            "LH2": {
                 "small": 3928,
-                "medium":5970,
-                "large":10100,
+                "medium": 5970,
+                "large": 10100
+            },
+            "NH3": {
+                "small": 2416,
+                "medium": 3752,
+                "large": 6360
             }
-                "small":2416,
-                "medium":3752,
-                "large":6360,
         },
-        "berthing_rate_s":{
-            "LH2":{
+        "berthing_rate_s": {
+            "LH2": {
                 "small": 3811,
-                "medium":6664,
-                "large":9800,
+                "medium": 6664,
+                "large": 9800
+            },
+            "NH3": {
+                "small": 3811,
+                "medium": 6664,
+                "large": 9800
             }
-                "small":3811,
-                "medium":6664,
-                "large":9800,
         },
-        }
         "charter_rate": {
-            "LH2":10100,
+            "LH2": 10100,
             "NH3": 6360
         },
-        "berthing_rate":{
+        "berthing_rate": {
             "LH2": 9800,
             "NH3": 9800
         }
